@@ -1,0 +1,248 @@
+<html>
+  <head>
+    <meta http-equiv='Content-Type' content='text/html;charset=utf-8'></meta>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1,IE=edge"></meta>
+    <link rel="stylesheet" type="text/css" href="http://www.x3dom.org/download/dev/x3dom.css" />
+    <script type="text/javascript" src="jscolor/jscolor.js"></script>
+    <script type="text/javascript" src="http://www.x3dom.org/download/dev/x3dom-full.js"></script>
+  </head>
+  <body>
+    <x3d onkeydown="keydown(event)" id="x3d" showStat="false" showLog="false" width="800px" height="600px">
+      <scene id="root" DEF="scene">
+        <NavigationInfo type="none"></NavigationInfo>
+        <transform id="rot1" rotation="1 0 0 0" center="0 0 10">
+          <transform id="rot2" rotation="0 1 0 0" center="0 0 10">
+            <transform id="rot3" rotation="0 0 1 0" center="0 0 10">
+              <viewpoint id="cam" rotation="1 0 0 0" orientation='0 0 0 0' position="0 0 10" centerOfRotation="0 0 10"/>
+            </transform>
+          </transform>
+        </transform>
+      </scene>
+    </x3d>   
+  </body>
+</html>
+
+<script type="text/javascript">
+
+  var wybrany = null;
+  var wybranyName = null;
+  var iloscObj = 0;
+  var move = null;
+  var moveDir = null;
+
+  var keyboard = null;
+
+  function keydown(event)
+  {
+    var e = document.getElementById("move");
+    keyboard = e.options[e.selectedIndex].text;
+
+    if (keyboard=="Rotate")
+    {
+      if (event.keyCode == 38) { var rot = "rot1"; wart = 0.025; }
+      if (event.keyCode == 40) { var rot = "rot1"; wart = -0.025; }
+      if (event.keyCode == 37) { var rot = "rot2"; wart = 0.025; }
+      if (event.keyCode == 39) { var rot = "rot2"; wart = -0.025; }
+      if (event.keyCode == 97) { var rot = "rot3"; wart = 0.025; }
+      if (event.keyCode == 96) { var rot = "rot3"; wart = -0.025; }
+      var a = document.getElementById(rot).getAttribute("rotation");
+      var tab = a.split(" ");
+      tab[3] = +tab[3] + wart;
+      var newpos = tab[0] + " " + tab[1] + " " + tab[2] + " " + tab[3];
+      document.getElementById(rot).setAttribute("rotation",newpos);
+    }
+    if (keyboard=="Translate")
+    {
+      var a = document.getElementById('cam').getAttribute("position");
+      var tab = a.split(" ");
+      if (event.keyCode == 38)  {tab[2] = +tab[2] - 0.25;}
+      if (event.keyCode == 40)  {tab[2] = +tab[2] + 0.25;}
+      if (event.keyCode == 97)  {tab[1] = +tab[1] - 0.25;}
+      if (event.keyCode == 96)  {tab[1] = +tab[1] + 0.25;}
+      if (event.keyCode == 37)  {tab[0] = +tab[0] - 0.25;}
+      if (event.keyCode == 39)  {tab[0] = +tab[0] + 0.25;}
+      var newpos = tab[0] + " " + tab[1] + " " + tab[2];
+      document.getElementById('cam').setAttribute("position",newpos);
+      document.getElementById('rot1').setAttribute("center",newpos);
+      document.getElementById('rot2').setAttribute("center",newpos);
+      document.getElementById('rot3').setAttribute("center",newpos);
+    }
+  }
+
+  function klik(obj)
+  {
+    wybrany = obj
+    wybranyName = wybrany.getAttribute("id");
+    document.getElementById('wybrany').innerHTML = "Wybrany obiekt " + wybranyName;
+
+    var mat = wybrany.getElementsByTagName("shape")[0].getElementsByTagName("appearance")[0].getElementsByTagName("material")[0];
+    var pol = mat.getAttribute('diffuseColor');
+    var tab = pol.split(" ");
+    document.getElementById('kolor').color.fromRGB(tab[0],tab[1],tab[2]);
+  }
+
+  function addNode()
+  {
+    iloscObj++;
+    var e = document.getElementById("typ");
+    var strUser = e.options[e.selectedIndex].text;
+    var s = document.createElement('shape');
+    var b = document.createElement(strUser);
+    s.appendChild(b);
+    var m = document.createElement('material');
+    var r = Math.random();
+    var g = Math.random();
+    var b = Math.random();
+    m.setAttribute('diffuseColor',r + " " + g + " " + b);
+    document.getElementById('kolor').color.fromRGB(r,g,b);
+    var a = document.createElement('appearance');
+    a.appendChild(m);
+    s.appendChild(a);
+    var ot = document.getElementById('root');
+    var t = document.createElement('Transform');
+    t.setAttribute("id","obj" + iloscObj);
+    t.setAttribute("typ",strUser);
+    t.setAttribute("translation","0 0 0");
+    t.setAttribute("onclick","klik(this)");
+    t.appendChild(s);
+    ot.appendChild(t);
+
+    var boxes = document.getElementById("x3d");
+    var redBox = document.getElementById("obj" + iloscObj);
+    new x3dom.Moveable(boxes, redBox, null, 0);
+
+    wybrany = redBox
+    wybranyName = wybrany.getAttribute("id");
+    document.getElementById('wybrany').innerHTML = "Wybrany obiekt " + wybranyName;
+  };
+
+  function removeNode()
+  {
+    var ot = document.getElementById('root');
+    var t = wybrany;
+    wybrany = null;
+    wybranyName = null;
+    document.getElementById('wybrany').innerHTML = "Nie wybrano obiektu";
+    ot.removeChild(t);
+  };
+
+  function tick() 
+  {
+    if (move==true)
+    {
+      if (wybranyName!=null)
+      {
+        var pol = document.getElementById(wybranyName).getAttribute("translation");
+        var poltav = pol.split(" ");
+
+        if (moveDir=="prawo")
+        {
+          poltav[0] = +poltav[0] + 0.05;
+        }
+        if (moveDir=="lewo")
+        {
+          poltav[0] = +poltav[0] - 0.05;
+        }
+        if (moveDir=="gora")
+        {
+          poltav[1] = +poltav[1] + 0.05;
+        }
+        if (moveDir=="dol")
+        {
+          poltav[1] = +poltav[1] - 0.05;
+        }
+        if (moveDir=="tyl")
+        {
+          poltav[2] = +poltav[2] - 0.05;
+        }
+        if (moveDir=="przod")
+        {
+          poltav[2] = +poltav[2] + 0.05;
+        }
+        var newpol = (poltav[0]) + " " + poltav[1] + " " + poltav[2];
+        document.getElementById(wybranyName).setAttribute("translation",newpol);
+      }
+    }
+  }
+
+  function omd(obj)
+  {
+    move = true;
+    var name = obj.getAttribute("name");
+    if (name=="lewo")
+    {
+      moveDir = "lewo";
+    }
+    if (name=="prawo")
+    {
+      moveDir = "prawo";
+    }
+    if (name=="gora")
+    {
+      moveDir = "gora";
+    }
+    if (name=="dol")
+    {
+      moveDir = "dol";
+    }
+    if (name=="tyl")
+    {
+      moveDir = "tyl";
+    }
+    if (name=="przod")
+    {
+      moveDir = "przod";
+    }
+  };
+
+  function switchMov(event)
+  {
+    alert("test");
+  }
+
+  function omu(obj)
+  {
+    move = false;
+    moveDir = null;
+  };
+
+  function updateCol(obj)
+  {
+    var mat = wybrany.getElementsByTagName("shape")[0].getElementsByTagName("appearance")[0].getElementsByTagName("material")[0];
+    mat.setAttribute('diffuseColor',obj.rgb[0] + " " + obj.rgb[1] + " " + obj.rgb[2]);
+  }
+
+  document.onload = function() 
+  {
+    setInterval(function() {tick();}, 25);
+  };
+
+</script>
+
+<input type="button" value="Dodaj obiekt" onclick="window.addNode();">
+<input type="button" value="Usun obiekt" onclick="window.removeNode();">
+<input type="button" name="lewo" value="Przesun w lewo" onmousedown="window.omd(this);" onmouseup="window.omu(this);"
+onmouseout="window.omu(this);">
+<input type="button" name="prawo" value="Przesun w prawo" onmousedown="window.omd(this);" onmouseup="window.omu(this);" onmouseout="window.omu(this);">
+<input type="button" name="gora" value="Przesun w gore" onmousedown="window.omd(this);" onmouseup="window.omu(this);"
+onmouseout="window.omu(this);">
+<input type="button" name="dol" value="Przesun w dol" onmousedown="window.omd(this);" onmouseup="window.omu(this);" onmouseout="window.omu(this);">
+<input type="button" name="tyl" value="Przesun w tyl" onmousedown="window.omd(this);" onmouseup="window.omu(this);"
+onmouseout="window.omu(this);">
+<input type="button" name="przod" value="Przesun w przod" onmousedown="window.omd(this);" onmouseup="window.omu(this);" onmouseout="window.omu(this);">
+
+<select id="typ">
+  <option value="Box">Box</option>
+  <option value="Cone">Cone</option>
+  <option value="Cylinder">Cylinder</option>
+  <option value="Sphere">Sphere</option>
+</select>
+
+<select id="move">
+  <option value="Translate">Translate</option>
+  <option value="Rotate">Rotate</option>
+</select>
+
+<div id="wybrany">Nie wybrano obiektu</div>
+
+Kolor: <input class="color {onImmediateChange:'updateCol(this);'}" value="66ff00" id="kolor">
