@@ -1,0 +1,170 @@
+<html>
+  <head>
+    <meta http-equiv='Content-Type' content='text/html;charset=utf-8'></meta>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1,IE=edge"></meta>
+    <link rel="stylesheet" type="text/css" href="http://www.x3dom.org/download/dev/x3dom.css" />
+    <script type="text/javascript" src="http://www.x3dom.org/download/dev/x3dom-full.js"></script>
+  </head>
+  <body>
+    <x3d id="x3d" width="800px" height="600px">
+      <scene id="root" DEF="scene">
+        <NavigationInfo type="none"></NavigationInfo>
+        <viewpoint id="persp" orientation='0 0 0 00' position="0 0 10" />
+      </scene>
+    </x3d>   
+  </body>
+</html>
+
+<script type="text/javascript">
+
+  var wybrany = null;
+  var wybranyName = null;
+  var iloscObj = 0;
+  var move = null;
+  var moveDir = null;
+
+  function klik(obj)
+  {
+    wybrany = obj
+    wybranyName = wybrany.getAttribute("id");
+    document.getElementById('wybrany').innerHTML = "Wybrany obiekt " + wybranyName;
+  }
+
+  function addNode()
+  {
+    iloscObj++;
+    var e = document.getElementById("typ");
+    var strUser = e.options[e.selectedIndex].text;
+    var s = document.createElement('shape');
+    var b = document.createElement(strUser);
+    s.appendChild(b);
+    var m = document.createElement('material');
+    m.setAttribute('diffuseColor',Math.random() + " " + Math.random() + " " + Math.random());
+    var a = document.createElement('appearance');
+    a.appendChild(m);
+    s.appendChild(a);
+    var ot = document.getElementById('root');
+    var t = document.createElement('Transform');
+    t.setAttribute("id","obj" + iloscObj);
+    t.setAttribute("typ",strUser);
+    t.setAttribute("translation","0 0.1 0.2");
+    t.setAttribute("onclick","klik(this)");
+    t.appendChild(s);
+    ot.appendChild(t);
+
+    var boxes = document.getElementById("x3d");
+    var redBox = document.getElementById("obj" + iloscObj);
+    new x3dom.Moveable(boxes, redBox, null, 0);
+  };
+
+  function removeNode()
+  {
+    var ot = document.getElementById('root');
+    var t = wybrany;
+    wybrany = null;
+    wybranyName = null;
+    document.getElementById('wybrany').innerHTML = "Nie wybrano obiektu";
+    ot.removeChild(t);
+  };
+
+  function tick() 
+  {
+    if (move==true)
+    {
+      if (wybranyName!=null)
+      {
+        var pol = document.getElementById(wybranyName).getAttribute("translation");
+        var poltav = pol.split(" ");
+
+        if (moveDir=="prawo")
+        {
+          poltav[0] = +poltav[0] + 0.05;
+        }
+        if (moveDir=="lewo")
+        {
+          poltav[0] = +poltav[0] - 0.05;
+        }
+        if (moveDir=="gora")
+        {
+          poltav[1] = +poltav[1] + 0.05;
+        }
+        if (moveDir=="dol")
+        {
+          poltav[1] = +poltav[1] - 0.05;
+        }
+        if (moveDir=="tyl")
+        {
+          poltav[2] = +poltav[2] - 0.05;
+        }
+        if (moveDir=="przod")
+        {
+          poltav[2] = +poltav[2] + 0.05;
+        }
+        var newpol = (poltav[0]) + " " + poltav[1] + " " + poltav[2];
+        document.getElementById(wybranyName).setAttribute("translation",newpol);
+      }
+    }
+  }
+
+  function omd(obj)
+  {
+    move = true;
+    var name = obj.getAttribute("name");
+    if (name=="lewo")
+    {
+      moveDir = "lewo";
+    }
+    if (name=="prawo")
+    {
+      moveDir = "prawo";
+    }
+    if (name=="gora")
+    {
+      moveDir = "gora";
+    }
+    if (name=="dol")
+    {
+      moveDir = "dol";
+    }
+    if (name=="tyl")
+    {
+      moveDir = "tyl";
+    }
+    if (name=="przod")
+    {
+      moveDir = "przod";
+    }
+  };
+
+  function omu(obj)
+  {
+    move = false;
+    moveDir = null;
+  };
+
+  document.onload = function() 
+  {
+    setInterval(function() {tick();}, 25);
+  };
+
+</script>
+
+<input type="button" value="Dodaj obiekt" onclick="window.addNode();">
+<input type="button" value="Usun obiekt" onclick="window.removeNode();">
+<input type="button" name="lewo" value="Przesun w lewo" onmousedown="window.omd(this);" onmouseup="window.omu(this);"
+onmouseout="window.omu(this);">
+<input type="button" name="prawo" value="Przesun w prawo" onmousedown="window.omd(this);" onmouseup="window.omu(this);" onmouseout="window.omu(this);">
+<input type="button" name="gora" value="Przesun w gore" onmousedown="window.omd(this);" onmouseup="window.omu(this);"
+onmouseout="window.omu(this);">
+<input type="button" name="dol" value="Przesun w dol" onmousedown="window.omd(this);" onmouseup="window.omu(this);" onmouseout="window.omu(this);">
+<input type="button" name="tyl" value="Przesun w tyl" onmousedown="window.omd(this);" onmouseup="window.omu(this);"
+onmouseout="window.omu(this);">
+<input type="button" name="przod" value="Przesun w przod" onmousedown="window.omd(this);" onmouseup="window.omu(this);" onmouseout="window.omu(this);">
+
+<select id="typ">
+  <option value="Box">Box</option>
+  <option value="Cone">Cone</option>
+  <option value="Cylinder">Cylinder</option>
+  <option value="Sphere">Sphere</option>
+</select>
+<div id="wybrany">Nie wybrano obiektu</div>
