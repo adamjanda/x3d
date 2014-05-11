@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pl">
+    <head>
+        <meta charset="utf-8">
+        <meta name="description" content="Zaliczenie z przedmiotu DZMU">
+  	<meta name="author" content="Adam Janda, Grzegorz Krukar, Leszek Koziatek, Grzegorz Konieczny">
+        <title>Modelowanie i wizualizacja brył w X3D</title>
+        <!-- Less libs -->
+        <link rel="stylesheet/less" href="less/bootstrap.less" type="text/css">
+	<link rel="stylesheet/less" href="less/responsive.less" type="text/css">
+	<script src="js/less-1.3.3.min.js"></script>
+        <!-- CSS -->
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+	<link href="css/style.css" rel="stylesheet">
+        <link href="css/x3dom.css" rel="stylesheet">
+        <link href="codebase/dhtmlxslider.css" rel="stylesheet">
+        <!-- JavaScript -->
+        <script>window.dhx_globalImgPath = "codebase/imgs/";</script>   
+        <script type="text/javascript" src="codebase/dhtmlxcommon.js"></script>
+        <script type="text/javascript" src="codebase/dhtmlxslider.js"></script>
+        <script type="text/javascript" src="codebase/ext/dhtmlxslider_start.js"></script>
+        <script type="text/javascript" src="js/jscolor/jscolor.js"></script> 
+        <script type="text/javascript" src="js/x3dom-full.js"></script>
+        <script type="text/javascript" src="js/jquery.min.js"></script>
+        <script type="text/javascript" src="js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="js/slidingDiv.js"></script>
+        <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+  	<!--[if lt IE 9]>
+    	<script src="js/html5shiv.js"></script>
+  	<![endif]-->
+    </head>
+    
+    <body>
+        <div class="container">
+            <div class="row clearfix" id="header">
+                <div class="col-md-12 col"></div>
+            </div>
+            <div id="border_box">
+                <div class="row clearfix">
+                    <div class="col-md-12 col" style="padding: 0; margin-bottom: 40px;">
+                        <ul class="nav nav-pills">
+                            <li class="active" style="padding-right: 10px;">
+                                <a href="index.html">Aplikacja</a>
+                            </li>
+                            <li style="padding-left: 10px; padding-right: 10px;">
+                                <a href="dokumentacja.html">Dokumentacja</a>
+                            </li>
+                            <li style="padding-left: 10px;">
+                                <a href="o_projekcie.html">O projekcie</a>
+                            </li>
+                            <li style="float: right">
+                                <span>Powered by</span><img src="img/x3d.png" />
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row clearfix">
+                    <div class="col-md-9 col" style="padding: 0;">
+                        <h1 style="margin-bottom: 40px">Dokumentacja</h1>
+                        <p style="margin-top: 20px; font-size: 16px">
+                            Dokumentacja dotyczy wszystkich funkcjonalności i została napisana, aby przybliżyć użytkownikowi
+                            działanie produktu.   
+                        </p>
+                        <blockquote>
+                            <img src="doc/add_obj.jpg" />
+                            <span style="font-size: 17px; margin-left: 10px;"> - przycisk odpowiadający za dodanie nowego obiektu.</span>
+                        </blockquote>
+                        <blockquote>
+                            <img src="doc/del_obj.jpg" />
+                            <span style="font-size: 17px; margin-left: 10px;"> - przycisk odpowiadający za usunięcie obiektu. Aby usunąć dany obiekt najpierw należy go zaznaczyć.</span>
+                        </blockquote>
+                        <blockquote>
+                            <img src="doc/type_obj.jpg" />
+                            <span style="font-size: 17px; margin-left: 10px;"> - lista rozwijana, z której wybieramy typ obiektu.</span>
+                        </blockquote>
+                         <blockquote>
+                            <img src="doc/add_ls.jpg" />
+                            <span style="font-size: 17px; margin-left: 10px;"> - przycisk odpowiadający za dodanie źródła światła.</span>
+                        </blockquote>
+                         <blockquote>
+                            <img src="doc/color.jpg" />
+                            <span style="font-size: 17px; margin-left: 10px;"> - gradient, z którego możemy wybrać kolor obiektu. Aby wybrać kolor danego obiektu najpierw musimy go zaznaczyć.</span>
+                        </blockquote>
+                         <blockquote>
+                            <img src="doc/textures.jpg" />
+                            <span style="font-size: 17px; margin-left: 10px;"> - przycisk odpowiedzialny za dodanie (nałożenie) tekstury na obiekt. Aby nałożyć teksturę najpierw musimy zaznaczyć obiekt.</span>
+                        </blockquote>
+                         <blockquote>
+                            <img src="doc/control.jpg" />
+                            <span style="font-size: 17px; margin-left: 10px;"> - strzałki odpowiedzialne są za poruszanie obiektem - odpowiednio oznaczają kierunki poruszania. Ikony plus i minus, odpowiadają za przybliżanie oraz oddalanie obiektu.</span>
+                        </blockquote>
+                    </div>
+                    <div class="col-md-3 col" style="padding: 0 0 0 15px;">
+
+                    </div>
+                </div>
+            </div>
+            <div class="row clearfix" id="footer">
+                <div class="col-md-12 column" style="width: 100%">
+                    <span style="color: #0099ff; font-size: 16px"><b>DZMU</b> Projekt X3D 2014</span>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

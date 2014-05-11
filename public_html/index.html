@@ -23,6 +23,7 @@
         <script type="text/javascript" src="js/x3dom-full.js"></script>
         <script type="text/javascript" src="js/jquery.min.js"></script>
         <script type="text/javascript" src="js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="js/slidingDiv.js"></script>
         <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
   	<!--[if lt IE 9]>
     	<script src="js/html5shiv.js"></script>
@@ -42,10 +43,10 @@
                                 <a href="index.html">Aplikacja</a>
                             </li>
                             <li style="padding-left: 10px; padding-right: 10px;">
-                                <a href="#">Dokumentacja</a>
+                                <a href="dokumentacja.html">Dokumentacja</a>
                             </li>
                             <li style="padding-left: 10px;">
-                                <a href="#">O projekcie</a>
+                                <a href="o_projekcie.html">O projekcie</a>
                             </li>
                             <li style="float: right">
                                 <span>Powered by</span><img src="img/x3d.png" />
@@ -59,9 +60,10 @@
                             <span style="font-weight: bold; color: #666;">Info:</span>
                             <span id="wybrany" style="color: #666;">Nie wybrano obiektu.</span>
                         </div>
-                        <input style="margin-bottom: 5px;" class="btn btn-info btn-sm" id="lightbtn" type="button" name="CameraLight" value="CameraLight OFF" onmousedown="window.cameraLight(this);">
-                        
-                        <x3d onkeydown="keydown(event)" id="x3d" showStat="false" showLog="false" width="780px" height="600px">
+                        <input style="margin-bottom: 5px;" class="btn btn-info btn-sm" id="lightbtn" type="button" name="CameraLight" value="Światło kamery Wył." onmousedown="window.cameraLight(this);">
+                        <span style="font-weight: bold; margin-left: 20px;">Przezroczystość: </span>
+                        <div style="margin-left: 260px; margin-top: -23px; margin-bottom: 20px;" id="slider"></div>
+                        <x3d onkeydown="keydown(event)" id="x3d" showStat="false" showLog="false" width="780px" height="580px">
                             <scene id="root" DEF="scene">
                                 <navigationinfo headlight="false"></navigationinfo>
                                 <transform id="rot1" rotation="1 0 0 0" center="0 0 0">
@@ -88,7 +90,7 @@
                                 <option value="Sphere">Sphere</option>
                             </select>
                         </div>
-                        <input type="button" style="margin-top: 10px;" class="btn btn-success btn-sm" value="Dodaj LS" onclick="window.addLS();">
+                        <input type="button" style="margin-top: 10px;" class="btn btn-success btn-sm" value="Dodaj źródło światła" onclick="window.addLS();">
                         <div style="margin-top: 10px;">
                             <span style="font-size: 14px; font-weight: bold;">Kolor: </span>
                             <input class="color {onImmediateChange:'updateCol(this);'}" value="66ff00" id="kolor" style="margin-left: 5px" />
@@ -104,13 +106,15 @@
                                 <h4 style="margin-left: -150px; margin-bottom: 30px;">Sterowanie obiektem</h4>
                                 <div>
                                     <img name="gora" onmousedown="window.omd(this);" onmouseup="window.omu(this);" src="img/up.png" alt="Up" onmouseover="this.src='img/up_red.png';" onmouseout="this.src='img/up.png';" />
+                                    <img name="przod" onmousedown="window.omd(this);" onmouseup="window.omu(this);" style="margin-left: 80px; margin-right: 20px" src="img/plus.png" onmouseover="this.src='img/plus1.png';" onmouseout="this.src='img/plus.png';" />
                                 </div>
                                 <div>
-                                    <img name="lewo" onmousedown="window.omd(this);" onmouseup="window.omu(this);" style="margin-left: -50px" src="img/left.png" alt="Left" onmouseover="this.src='img/left_red.png';" onmouseout="this.src='img/left.png';" />
+                                    <img name="lewo" onmousedown="window.omd(this);" onmouseup="window.omu(this);" style="margin-left: -50px" src="img/left.png" alt="Left" onmouseover="this.src='img/left_red.png';" onmouseout="this.src='img/left.png';" /> 
                                     <img name="prawo" onmousedown="window.omd(this);" onmouseup="window.omu(this);" style="margin-left: 50px" src="img/right.png" alt="Right" onmouseover="this.src='img/right_red.png';" onmouseout="this.src='img/right.png';" />
+                                    <img name="tyl" onmousedown="window.omd(this);" onmouseup="window.omu(this);" style="margin-left: 29px" src="img/minus.png" onmouseover="this.src='img/minus1.png';" onmouseout="this.src='img/minus.png';" />
                                 </div>
                                 <div>
-                                    <img name="dol" onmousedown="window.omd(this);" onmouseup="window.omu(this);" src="img/down.png" alt="Down" onmouseover="this.src='img/down_red.png';" onmouseout="this.src='img/down.png';" />
+                                    <img name="dol" onmousedown="window.omd(this);" onmouseup="window.omu(this);" src="img/down.png" alt="Down" onmouseover="this.src='img/down_red.png';" onmouseout="this.src='img/down.png';" /> 
                                 </div>
                             </div>
                             <span style="font-size: 14px; font-weight: bold">Transponowanie: </span>
@@ -118,7 +122,7 @@
                                 <option value="Translate">Translate</option>
                                 <option value="Rotate">Rotate</option>
                             </select>
-                            <div class="panel panel-info" style="margin-top: 20px">
+                            <!--<div class="panel panel-info" style="margin-top: 20px">
                                 <div class="show_hide panel-heading">
                                     <span class="caret" style="margin-left: -5px; margin-right: 10px"></span><span style="font-size: 14px">Sterowanie kamerą</span>
                                 </div>
@@ -128,12 +132,12 @@
                                         <input type="button" class="btn btn-default btn-block" name="tyl" value="Oddal" onmousedown="window.omd(this);" onmouseup="window.omu(this);" onmouseout="window.omu(this);">
                                     </div>
                                 </div>
-                            </div>
-                            <div class="panel panel-info">
-                                <div class="show_hide2 panel-heading">
+                            </div>-->
+                            <div class="panel panel-info" style="margin-top: 20px">
+                                <div class="show_hide panel-heading">
                                     <span class="caret" style="margin-left: -5px; margin-right: 10px"></span><span style="font-size: 14px">Rozmiar</span>
                                 </div>
-                                <div class="slidingDiv2">
+                                <div class="slidingDiv">
                                     <div class="panel-body">
                                         <input type="button" class="btn btn-default btn-block" name="resizeX+" value="Oś X (+)" onmousedown="window.resizeMD(this);" onmouseup="window.resizeMU(this);" onmouseout="window.resizeMU(this);">
                                         <input type="button" class="btn btn-default btn-block" name="resizeX-" value="Oś X (-)" onmousedown="window.resizeMD(this);" onmouseup="window.resizeMU(this);" onmouseout="window.resizeMU(this);">
@@ -143,6 +147,23 @@
                                         <hr />
                                         <input type="button" class="btn btn-default btn-block" name="resizeZ+" value="Oś Z (+)" onmousedown="window.resizeMD(this);" onmouseup="window.resizeMU(this);" onmouseout="window.resizeMU(this);">
                                         <input type="button" class="btn btn-default btn-block" name="resizeZ-" value="Oś Z (-)" onmousedown="window.resizeMD(this);" onmouseup="window.resizeMU(this);" onmouseout="window.resizeMU(this);">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-info">
+                                <div class="show_hide2 panel-heading">
+                                    <span class="caret" style="margin-left: -5px; margin-right: 10px"></span><span style="font-size: 14px">Obracanie</span>
+                                </div>
+                                <div class="slidingDiv2">
+                                    <div class="panel-body">
+                                        <input type="button" class="btn btn-default btn-block" name="rotateX+" value="Oś X (+)" onmousedown="window.rotateMD(this);" onmouseup="window.rotateMU(this);" onmouseout="window.rotateMU(this);">
+                                        <input type="button" class="btn btn-default btn-block" name="rotateX-" value="Oś X (-)" onmousedown="window.rotateMD(this);" onmouseup="window.rotateMU(this);" onmouseout="window.rotateMU(this);">
+                                        <hr />
+                                        <input type="button" class="btn btn-default btn-block" name="rotateY+" value="Oś Y (+)" onmousedown="window.rotateMD(this);" onmouseup="window.rotateMU(this);" onmouseout="window.rotateMU(this);">
+                                        <input type="button" class="btn btn-default btn-block" name="rotateY-" value="Oś Y (-)" onmousedown="window.rotateMD(this);" onmouseup="window.rotateMU(this);" onmouseout="window.rotateMU(this);">
+                                        <hr />
+                                        <input type="button" class="btn btn-default btn-block" name="rotateZ+" value="Oś Z (+)" onmousedown="window.rotateMD(this);" onmouseup="window.rotateMU(this);" onmouseout="window.rotateMU(this);">
+                                        <input type="button" class="btn btn-default btn-block" name="rotateZ-" value="Oś Z (-)" onmousedown="window.rotateMD(this);" onmouseup="window.rotateMU(this);" onmouseout="window.rotateMU(this);">
                                     </div>
                                 </div>
                             </div>
@@ -159,40 +180,22 @@
     </body>
 </html>
 
+<!-- Tekstury - JS -->
 <script type="text/javascript">
-    $(document).ready(function () {
-        $(".slidingDiv").hide();
-        $(".show_hide").show();
-        $('.show_hide').click(function () {
-            $(".slidingDiv").slideToggle();
-        });
-    });
-</script>
-
-<script type="text/javascript">
-    $(document).ready(function () {
-        $(".slidingDiv2").hide();
-        $(".show_hide2").show();
-        $('.show_hide2').click(function () {
-            $(".slidingDiv2").slideToggle();
-        });
-    });
-</script>
-
-<script>
-  function handleFileSelect(evt) 
-  {
-    var files = evt.target.files;
-    for (var i = 0, f; f = files[i]; i++) 
+    function handleFileSelect(evt)
     {
-      tex = document.createElement('ImageTexture');
-      tex.setAttribute('url',f.name);
-      wybrany.getElementsByTagName("shape")[0].getElementsByTagName("appearance")[0].appendChild(tex);
+        var files = evt.target.files;
+        for (var i = 0, f; f = files[i]; i++) 
+        {
+            tex = document.createElement('ImageTexture');
+            tex.setAttribute('url',f.name);
+            wybrany.getElementsByTagName("shape")[0].getElementsByTagName("appearance")[0].appendChild(tex);
+        }
     }
-  }
-  document.getElementById('files').addEventListener('change', handleFileSelect, false);
+    document.getElementById('files').addEventListener('change', handleFileSelect, false);
 </script>
 
+<!-- Skrypt główny - JS -->
 <script type="text/javascript">
 
   var wybrany = null;
@@ -658,10 +661,10 @@
   function cameraLight(obj)
   {
     //id="ni" headlight='true'
-    if (obj.value=="CameraLight OFF")
+    if (obj.value=="Światło kamery Wył.")
     {
       console.log('test');
-      document.getElementById('lightbtn').value = "CameraLight ON";
+      document.getElementById('lightbtn').value = "Światło kamery Wł.";
       document.getElementById('light').setAttribute('intensity','0.0');
       document.getElementById('light').setAttribute('ambientIntensity','0.0');
       document.getElementById('light').setAttribute('shadowIntensity','0.0');
@@ -670,7 +673,7 @@
     }
     else
     {
-      document.getElementById('lightbtn').value = "CameraLight OFF";
+      document.getElementById('lightbtn').value = "Światło kamery Wył.";
       document.getElementById('light').setAttribute('intensity','1.0');
       document.getElementById('light').setAttribute('ambientIntensity','1.0');
       document.getElementById('light').setAttribute('shadowIntensity','0.8');
@@ -679,7 +682,7 @@
     }
   }
 
-  var slider = new dhtmlxSlider(null,400,null,null,0,1,0,0.01);
+  var slider = new dhtmlxSlider('slider',400,null,null,0,1,0,0.01);
   slider.attachEvent("onChange", handler);
   slider.init();
 
@@ -687,5 +690,4 @@
   {
     setInterval(function() {tick();}, 25);
   };
-
 </script>
