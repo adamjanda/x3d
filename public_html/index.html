@@ -24,6 +24,7 @@
         <script type="text/javascript" src="js/jquery.min.js"></script>
         <script type="text/javascript" src="js/bootstrap.min.js"></script>
         <script type="text/javascript" src="js/slidingDiv.js"></script>
+           <script type="text/javascript" src="js/path_to/upclick-min.js"></script>
         <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
   	<!--[if lt IE 9]>
     	<script src="js/html5shiv.js"></script>
@@ -98,7 +99,7 @@
                         <hr />
                         <div style="margin-top: 10px;">
                             <span style="font-size: 14px; font-weight: bold;">Tekstury: </span>
-                            <input class="btn btn-info btn-sm" style="margin-top: 5px" type="file" id="files" name="files[]" multiple />
+                            <input class="btn btn-info btn-sm" style="margin-top: 5px" type="button" value="Upload" id="files" name="files[]" multiple />
                         </div>
                         <hr />
                         <div style="margin-top: 20px;">
@@ -179,6 +180,28 @@
         </div>
     </body>
 </html>
+<!-- Upload zdjęć - JS   -->
+<script type="text/javascript">
+
+   var files = document.getElementById('files');
+
+   upclick(
+     {
+      element: files,
+      action: '/x3d/public_html/js/path_to/dodaj.php', 
+      onstart:
+        function(filename)
+        {
+          alert('Start upload:');
+        },
+      oncomplete:
+        function(response_data) 
+        {
+          alert(response_data);
+        }
+     });
+
+   </script>
 
 <!-- Tekstury - JS -->
 <script type="text/javascript">
