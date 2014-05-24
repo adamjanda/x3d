@@ -247,8 +247,6 @@
       var tab = a.split(" ");
       tab[3] = +tab[3] + wart;
       var newpos = tab[0] + " " + tab[1] + " " + tab[2] + " " + tab[3];
-      console.log(rot);
-      console.log(newpos);
       document.getElementById(rot).setAttribute("rotation",newpos);
     }
     if (keyboard=="Translate")
@@ -299,7 +297,7 @@
     m.setAttribute('specularColor',r + " " + g + " " + b);
     m.setAttribute('diffuseColor',r + " " + g + " " + b);
     //shininess='0.5'
-    m.setAttribute('shininess','0.5');
+    m.setAttribute('shininess','10.0');
     document.getElementById('kolor').color.fromRGB(r,g,b);
     var a = document.createElement('appearance');
     a.appendChild(m);
@@ -310,10 +308,11 @@
     var ot = document.getElementById('root');
     var t = document.createElement('Transform');
     t.setAttribute("typ",strUser);
-    t.setAttribute("translation","0 0 0");
     t.setAttribute('scale','1 1 1');
     t.setAttribute('rotation','1 0 0 0');
     t.appendChild(s);
+
+    slider.setValue(0);
 
     var t3 = document.createElement('Transform');
     var t2 = document.createElement('Transform');
@@ -332,6 +331,7 @@
 
     wybrany = redBox
     wybranyName = wybrany.getAttribute("id");
+    document.getElementById(wybranyName).setAttribute("translation","0 0 0");
     document.getElementById('wybrany').innerHTML = "Wybrany obiekt " + wybranyName;
   };
 
@@ -352,7 +352,6 @@
     m.setAttribute('emissivecolor',"0 0 0");
     //shininess='0.5'
     m.setAttribute('shininess','1.0');
-    document.getElementById('kolor').color.fromRGB(r,g,b);
     var a = document.createElement('appearance');
     a.appendChild(m);
     //tex = document.createElement('ImageTexture');
@@ -362,10 +361,11 @@
     var ot = document.getElementById('root');
     var t = document.createElement('Transform');
     t.setAttribute("typ",strUser);
-    t.setAttribute("translation","0 0 0");
     t.setAttribute('scale','0.25 0.25 0.25');
     t.setAttribute('rotation','1 0 0 0');
     t.appendChild(s);
+
+    slider.setValue(0);
 
     var t3 = document.createElement('Transform');
     var t2 = document.createElement('Transform');
@@ -392,6 +392,7 @@
 
     wybrany = redBox
     wybranyName = wybrany.getAttribute("id");
+    document.getElementById(wybranyName).setAttribute("translation","0 0 0");
     document.getElementById('wybrany').innerHTML = "Wybrany obiekt " + wybranyName;
 
     /*iloscObj++;
@@ -444,11 +445,20 @@
   function removeNode()
   {
     var ot = document.getElementById('root');
-    var t = wybrany;
+    killFullObject(ot,wybrany);
     wybrany = null;
     wybranyName = null;
     document.getElementById('wybrany').innerHTML = "Nie wybrano obiektu";
-    ot.removeChild(t);
+  };
+
+  function killFullObject(parent,obj)
+  {
+    while (obj.firstChild)
+    {
+        killFullObject(obj,obj.firstChild);
+    }
+    parent.removeChild(obj);
+    delete obj;
   };
 
   function tick() 
@@ -631,7 +641,6 @@
     resize = true;
     var name = obj.getAttribute("name");
     resizeAxis = name;
-    console.log(resizeAxis);
   }
 
   function resizeMU(obj)
@@ -663,45 +672,55 @@
 
   function handler(pos, slider) 
   {
-    console.log("update")
     if (wybranyName!=null)
     {
-      var mat = wybrany.getElementsByTagName("shape")[0].getElementsByTagName("appearance")[0].getElementsByTagName("material")[0].setAttribute('transparency',pos);
+      wybrany.getElementsByTagName("shape")[0].getElementsByTagName("appearance")[0].getElementsByTagName("material")[0].setAttribute('transparency',pos);
 
-      var ot = document.getElementById('root');
+      /*var ot = document.getElementById('root');
+      ot.removeChild(wybrany);
+
+      ot.appendChild(wybrany);
+
+      var boxes = document.getElementById("x3d");
+      new x3dom.Moveable(boxes, wybrany, null, 0);
+
+      delete ot
+      delete boxes*/
+
+      /*var ot = document.getElementById('root');
       var t = wybrany;
       wybrany = null;
-      document.getElementById('wybrany').innerHTML = "Nie wybrano obiektu";
       ot.removeChild(t);
       ot.appendChild(t);
-      wybrany = t;
+      t = null
       var boxes = document.getElementById("x3d");
       var redBox = document.getElementById(wybranyName);
-      new x3dom.Moveable(boxes, redBox, null, 0);
+      new x3dom.Moveable(boxes, redBox, null, 0);*/
     }
   }
 
   function cameraLight(obj)
   {
-    //id="ni" headlight='true'
     if (obj.value=="Światło kamery Wył.")
     {
-      console.log('test');
       document.getElementById('lightbtn').value = "Światło kamery Wł.";
-      document.getElementById('light').setAttribute('intensity','0.0');
-      document.getElementById('light').setAttribute('ambientIntensity','0.0');
-      document.getElementById('light').setAttribute('shadowIntensity','0.0');
-      document.getElementById('light').setAttribute('shadowOffset','0.0');
-      document.getElementById('light').setAttribute('shadowFilterSize','0.0');
+      var ot = document.getElementById('root');
+      ot.removeChild(document.getElementById('light'));
     }
     else
     {
       document.getElementById('lightbtn').value = "Światło kamery Wył.";
-      document.getElementById('light').setAttribute('intensity','1.0');
-      document.getElementById('light').setAttribute('ambientIntensity','1.0');
-      document.getElementById('light').setAttribute('shadowIntensity','0.8');
-      document.getElementById('light').setAttribute('shadowOffset','0.7');
-      document.getElementById('light').setAttribute('shadowFilterSize','2');
+
+      var dl = document.createElement('DirectionalLight');
+      dl.setAttribute("id","light");
+      dl.setAttribute("ambientIntensity","0.4");
+      dl.setAttribute("intensity","0.7");
+      dl.setAttribute("shadowIntensity","0.8");
+      dl.setAttribute("shadowOffset","0.7");
+      dl.setAttribute("shadowFilterSize","2");
+
+      var ot = document.getElementById('root');
+      ot.appendChild(dl)
     }
   }
 
