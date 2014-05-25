@@ -179,6 +179,7 @@
 
    var files = document.getElementById('files');
    var fullpath = "";
+   var texFlag = true;
 
    upclick(
      {
@@ -187,13 +188,23 @@
       onstart:
         function(filename)
         {
+          texFlag = true;
           if (wybrany == null)
           {
             alert("Nie wybrano obiektu!");
-            break;
+            texFlag = false;
+            return;
           }
           var fileNameIndex = filename.lastIndexOf("\\")+1;
           var filen = filename.substr(fileNameIndex);
+
+          if (filen.substr(filen.length-4) != ".bmp")
+          {
+            alert("Tekstura musi być w formacie bmp");
+            texFlag = false;
+            return;
+          }
+
           var docurl = document.URL;
           docurl = docurl.substr(0,docurl.lastIndexOf('/')+1);
           fullpath = docurl + "js/path_to/" + filen;
@@ -201,8 +212,11 @@
       oncomplete:
         function(response_data) 
         {
-          console.log(fullpath);
-          addTexToObj(fullpath);
+          if (texFlag == true)
+          {
+            console.log(fullpath);
+            addTexToObj(fullpath);
+          }
         }
      });
 
