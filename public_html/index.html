@@ -103,7 +103,7 @@
                         </div>
                         <hr />
                         <div style="margin-top: 10px;">
-                            <span style="font-size: 14px; font-weight: bold;">Tekstury: </span>
+                            <span style="font-size: 14px; font-weight: bold;">Tekstura: </span>
                             <input class="btn btn-info btn-sm" style="margin-top: 5px" type="file" value="Upload" id="files" name="files[]" multiple />
                         </div>
                         <hr />
@@ -187,6 +187,11 @@
       onstart:
         function(filename)
         {
+          if (wybrany == null)
+          {
+            alert("Nie wybrano obiektu!");
+            break;
+          }
           var fileNameIndex = filename.lastIndexOf("\\")+1;
           var filen = filename.substr(fileNameIndex);
           var docurl = document.URL;
@@ -196,12 +201,7 @@
       oncomplete:
         function(response_data) 
         {
-          if (wybrany == null)
-          {
-            alert("Nie wybrano obiektu!");
-            return;
-          }
-          console.log(fullpath)
+          console.log(fullpath);
           addTexToObj(fullpath);
         }
      });
