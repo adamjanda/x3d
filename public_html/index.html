@@ -246,10 +246,10 @@
   function keydown(event)
   {
     var e = document.getElementById("move");
-    keyboard = e.options[e.selectedIndex].text;
+    keyboard = e.selectedIndex;
     var rot = null;
     var kc = event.keyCode;
-    if (keyboard=="Rotate")
+    if (keyboard==1)
     {
       if (kc == 119 || kc == 87) {  rot = "rot1"; wart = 0.025; } //w
       if (kc == 115 || kc == 83) {  rot = "rot1"; wart = -0.025; } //s
@@ -263,7 +263,7 @@
       var newpos = tab[0] + " " + tab[1] + " " + tab[2] + " " + tab[3];
       document.getElementById(rot).setAttribute("rotation",newpos);
     }
-    if (keyboard=="Translate")
+    if (keyboard==0)
     {
       var a = document.getElementById('cam').getAttribute("position");
       var tab = a.split(" ");
@@ -297,9 +297,28 @@
   {
     iloscObj++;
     var e = document.getElementById("typ");
-    var strUser = e.options[e.selectedIndex].text;
+    var elementID = e.selectedIndex;
     var s = document.createElement('shape');
-    var b = document.createElement(strUser);
+
+    var elementName = ""
+    if (elementID==0)
+    {
+        elementName = "Box";
+    }
+    if (elementID==1)
+    {
+        elementName = "Cone";
+    }
+    if (elementID==2)
+    {
+        elementName = "Cylinder";
+    }
+    if (elementID==3)
+    {
+        elementName = "Sphere";
+    }
+
+    var b = document.createElement(elementName);
     s.appendChild(b);
     var m = document.createElement('material');
     var r = Math.random();
@@ -314,7 +333,7 @@
     s.appendChild(a);
     var ot = document.getElementById('root');
     var t = document.createElement('Transform');
-    t.setAttribute("typ",strUser);
+    t.setAttribute("typ",elementName);
     t.setAttribute('scale','1 1 1');
     t.setAttribute('rotation','1 0 0 0');
     t.appendChild(s);
@@ -346,7 +365,6 @@
   {
     iloscObj++;
     var e = document.getElementById("typ");
-    var strUser = e.options[e.selectedIndex].text;
     var s = document.createElement('shape');
     var b = document.createElement('Sphere');
     s.appendChild(b);
@@ -363,7 +381,6 @@
     s.appendChild(a);
     var ot = document.getElementById('root');
     var t = document.createElement('Transform');
-    t.setAttribute("typ",strUser);
     t.setAttribute('scale','0.25 0.25 0.25');
     t.setAttribute('rotation','1 0 0 0');
     t.appendChild(s);
