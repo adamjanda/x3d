@@ -65,6 +65,11 @@
                         <span style="font-weight: bold; margin-left: 20px;">Przezroczystość: </span>
                         <div style="margin-left: 260px; margin-top: -23px; margin-bottom: 20px;" id="slider"></div>
                         <x3d onkeydown="keydown(event)" id="x3d" showStat="false" showLog="false" width="780px" height="580px">
+                            <param name="showLog" value="false"></param>
+                            <param name="showStat" value="false"></param>
+                            <param name="showProgress" value="false"></param>
+                            <param name="disableDoubleClick" value="true"></param>
+                            <param name="disableRightDrag" value="true"></param>
                             <scene id="root" DEF="scene">
                                 <navigationinfo headlight="false"></navigationinfo>
                                 <transform id="rot1" rotation="1 0 0 0" center="0 0 0">
@@ -243,14 +248,15 @@
     var e = document.getElementById("move");
     keyboard = e.options[e.selectedIndex].text;
     var rot = null;
+    var kc = event.keyCode;
     if (keyboard=="Rotate")
     {
-      if (event.keyCode == 38) {  rot = "rot1"; wart = 0.025; }
-      if (event.keyCode == 40) {  rot = "rot1"; wart = -0.025; }
-      if (event.keyCode == 37) {  rot = "rot2"; wart = 0.025; }
-      if (event.keyCode == 39) {  rot = "rot2"; wart = -0.025; }
-      if (event.keyCode == 16) {  rot = "rot3"; wart = 0.025; }
-      if (event.keyCode == 17) {  rot = "rot3"; wart = -0.025; }
+      if (kc == 119 || kc == 87) {  rot = "rot1"; wart = 0.025; } //w
+      if (kc == 115 || kc == 83) {  rot = "rot1"; wart = -0.025; } //s
+      if (kc == 97 || kc == 65) {  rot = "rot2"; wart = 0.025; } //a
+      if (kc == 100 || kc == 68) {  rot = "rot2"; wart = -0.025; } //d
+      if (kc == 113 || kc == 81) {  rot = "rot3"; wart = 0.025; } //q
+      if (kc == 101 || kc == 69) {  rot = "rot3"; wart = -0.025; } //e
       var a = document.getElementById(rot).getAttribute("rotation");
       var tab = a.split(" ");
       tab[3] = +tab[3] + wart;
@@ -261,12 +267,12 @@
     {
       var a = document.getElementById('cam').getAttribute("position");
       var tab = a.split(" ");
-      if (event.keyCode == 38)  {tab[2] = +tab[2] - 0.25;}
-      if (event.keyCode == 40)  {tab[2] = +tab[2] + 0.25;}
-      if (event.keyCode == 17)  {tab[1] = +tab[1] - 0.25;}
-      if (event.keyCode == 16)  {tab[1] = +tab[1] + 0.25;}
-      if (event.keyCode == 37)  {tab[0] = +tab[0] - 0.25;}
-      if (event.keyCode == 39)  {tab[0] = +tab[0] + 0.25;}
+      if (kc == 119 || kc == 87)  {tab[1] = +tab[1] - 0.25;} //w
+      if (kc == 115 || kc == 83)  {tab[1] = +tab[1] + 0.25;} //s
+      if (kc == 97 || kc == 65)  {tab[0] = +tab[0] + 0.25;} //a
+      if (kc == 100 || kc == 68)  {tab[0] = +tab[0] - 0.25;} //d
+      if (kc == 113 || kc == 81)  {tab[2] = +tab[2] - 0.25;} //q
+      if (kc == 101 || kc == 69)  {tab[2] = +tab[2] + 0.25;} //e
       var newpos = tab[0] + " " + tab[1] + " " + tab[2];
       document.getElementById('cam').setAttribute("position",newpos);
       campos = newpos;
