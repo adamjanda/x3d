@@ -173,20 +173,28 @@
 <script type="text/javascript">
 
    var files = document.getElementById('files');
+   var pullpath = "";
 
    upclick(
      {
       element: files,
-      action: '/x3d/public_html/js/path_to/dodaj.php', 
+      action: '/js/path_to/dodaj.php', 
       onstart:
         function(filename)
         {
-          alert('Start upload:');
+          var fileNameIndex = filename.lastIndexOf("\\") + 1;
+          var filen = filename.substr(fileNameIndex);
+          pullpath = document.URL + "js/path_to/" + filen;
         },
       oncomplete:
         function(response_data) 
         {
-          alert(response_data);
+          if (wybrany == null)
+          {
+            alert("Nie wybrano obiektu!");
+            return;
+          }
+          addTexToObj(pullpath);
         }
      });
 
@@ -194,17 +202,12 @@
 
 <!-- Tekstury - JS -->
 <script type="text/javascript">
-    function handleFileSelect(evt)
+    function addTexToObj(url)
     {
-        var files = evt.target.files;
-        for (var i = 0, f; f = files[i]; i++) 
-        {
-            tex = document.createElement('ImageTexture');
-            tex.setAttribute('url',f.name);
-            wybrany.getElementsByTagName("shape")[0].getElementsByTagName("appearance")[0].appendChild(tex);
-        }
+      tex = document.createElement('ImageTexture');
+      tex.setAttribute('url',url);
+      wybrany.getElementsByTagName("shape")[0].getElementsByTagName("appearance")[0].appendChild(tex);
     }
-    document.getElementById('files').addEventListener('change', handleFileSelect, false);
 </script>
 
 <!-- Skrypt główny - JS -->
