@@ -178,7 +178,7 @@
 <script type="text/javascript">
 
    var files = document.getElementById('files');
-   var pullpath = "";
+   var fullpath = "";
 
    upclick(
      {
@@ -187,9 +187,11 @@
       onstart:
         function(filename)
         {
-          var fileNameIndex = filename.lastIndexOf("\\") + 1;
+          var fileNameIndex = filename.lastIndexOf("\\")+1;
           var filen = filename.substr(fileNameIndex);
-          pullpath = document.URL + "js/path_to/" + filen;
+          var docurl = document.URL;
+          docurl = docurl.substr(0,docurl.lastIndexOf('/')+1);
+          fullpath = docurl + "js/path_to/" + filen;
         },
       oncomplete:
         function(response_data) 
@@ -199,7 +201,8 @@
             alert("Nie wybrano obiektu!");
             return;
           }
-          addTexToObj(pullpath);
+          console.log(fullpath)
+          addTexToObj(fullpath);
         }
      });
 
