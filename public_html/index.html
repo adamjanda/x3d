@@ -208,6 +208,22 @@
       tex.setAttribute('url',url);
       wybrany.getElementsByTagName("shape")[0].getElementsByTagName("appearance")[0].appendChild(tex);
     }
+
+    function removeTexture()
+    {
+      if (wybrany == null)
+      {
+        alert("Nie wybrano obiektu!");
+        return;
+      }
+      if (wybrany.getElementsByTagName("shape")[0].getElementsByTagName("appearance")[0].getElementsByTagName("ImageTexture")[0] == null)
+      {
+        alert("Wybrany obiekt nie posiada tekstury!");
+        return;
+      }
+
+      killFullObject(wybrany.getElementsByTagName("shape")[0].getElementsByTagName("appearance")[0],wybrany.getElementsByTagName("shape")[0].getElementsByTagName("appearance")[0].getElementsByTagName("ImageTexture")[0]);
+    }
 </script>
 
 <!-- Skrypt główny - JS -->
@@ -654,3 +670,5 @@
     setInterval(function() {tick();}, 25);
   };
 </script>
+
+<input id="removeTexture" type="button" name="removeTexture" value="Usuń teskture" onmousedown="window.removeTexture();">
