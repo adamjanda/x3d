@@ -536,39 +536,39 @@
     {
       if (wybranyName!=null)
       {
-        if (rotateAxis=="rotateX+")
-        {
-          var size = document.getElementById(wybranyName).getAttribute('rotation');
-          var sizeAxis = size.split(" ");
-          sizeAxis[3] = +sizeAxis[3] + 0.025;
-          var newSize = (sizeAxis[0]) + " " + sizeAxis[1] + " " + sizeAxis[2] + " " + sizeAxis[3];
-          document.getElementById(wybranyName).setAttribute("rotation",newSize);
-        }
-        if (rotateAxis=="rotateX-")
-        {
-          var size = document.getElementById(wybranyName).getAttribute('rotation');
-          var sizeAxis = size.split(" ");
-          sizeAxis[3] = +sizeAxis[3] - 0.025;
-          var newSize = (sizeAxis[0]) + " " + sizeAxis[1] + " " + sizeAxis[2] + " " + sizeAxis[3];
-          document.getElementById(wybranyName).setAttribute("rotation",newSize);
-        }
         if (rotateAxis=="rotateY+")
         {
-          var size = document.getElementById(wybranyName).childNodes[0].getAttribute('rotation');
+          var size = document.getElementById(wybranyName).getAttribute('rotation');
           var sizeAxis = size.split(" ");
           sizeAxis[3] = +sizeAxis[3] + 0.025;
           var newSize = (sizeAxis[0]) + " " + sizeAxis[1] + " " + sizeAxis[2] + " " + sizeAxis[3];
-          document.getElementById(wybranyName).childNodes[0].setAttribute("rotation",newSize);
+          document.getElementById(wybranyName).setAttribute("rotation",newSize);
         }
         if (rotateAxis=="rotateY-")
         {
+          var size = document.getElementById(wybranyName).getAttribute('rotation');
+          var sizeAxis = size.split(" ");
+          sizeAxis[3] = +sizeAxis[3] - 0.025;
+          var newSize = (sizeAxis[0]) + " " + sizeAxis[1] + " " + sizeAxis[2] + " " + sizeAxis[3];
+          document.getElementById(wybranyName).setAttribute("rotation",newSize);
+        }
+        if (rotateAxis=="rotateZ+")
+        {
+          var size = document.getElementById(wybranyName).childNodes[0].getAttribute('rotation');
+          var sizeAxis = size.split(" ");
+          sizeAxis[3] = +sizeAxis[3] + 0.025;
+          var newSize = (sizeAxis[0]) + " " + sizeAxis[1] + " " + sizeAxis[2] + " " + sizeAxis[3];
+          document.getElementById(wybranyName).childNodes[0].setAttribute("rotation",newSize);
+        }
+        if (rotateAxis=="rotateZ-")
+        {
           var size = document.getElementById(wybranyName).childNodes[0].getAttribute('rotation');
           var sizeAxis = size.split(" ");
           sizeAxis[3] = +sizeAxis[3] - 0.025;
           var newSize = (sizeAxis[0]) + " " + sizeAxis[1] + " " + sizeAxis[2] + " " + sizeAxis[3];
           document.getElementById(wybranyName).childNodes[0].setAttribute("rotation",newSize);
         }
-        if (rotateAxis=="rotateZ+")
+        if (rotateAxis=="rotateX+")
         {
           var size = document.getElementById(wybranyName).childNodes[0].childNodes[0].getAttribute('rotation');
           var sizeAxis = size.split(" ");
@@ -576,7 +576,7 @@
           var newSize = (sizeAxis[0]) + " " + sizeAxis[1] + " " + sizeAxis[2] + " " + sizeAxis[3];
           document.getElementById(wybranyName).childNodes[0].childNodes[0].setAttribute("rotation",newSize);
         }
-        if (rotateAxis=="rotateZ-")
+        if (rotateAxis=="rotateX-")
         {
           var size = document.getElementById(wybranyName).childNodes[0].childNodes[0].getAttribute('rotation');
           var sizeAxis = size.split(" ");
