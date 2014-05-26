@@ -7,7 +7,7 @@
         <title>Modelowanie i wizualizacja brył w X3D</title>
         <!-- Less libs -->
         <link rel="stylesheet/less" href="less/bootstrap.less" type="text/css">
-	<link rel="stylesheet/less" href="less/responsive.less" type="text/css">
+	<!--<link rel="stylesheet/less" href="less/responsive.less" type="text/css">-->
 	<script src="js/less-1.3.3.min.js"></script>
         <!-- CSS -->
         <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -90,10 +90,10 @@
                         <div style="margin-top: 10px;">
                             <span style="font-size: 14px; font-weight: bold;">Typ obiektu: </span>
                             <select id="typ" style="margin-left: 5px;">
-                                <option value="Box">Box</option>
-                                <option value="Cone">Cone</option>
-                                <option value="Cylinder">Cylinder</option>
-                                <option value="Sphere">Sphere</option>
+                                <option value="Box">Sześcian</option>
+                                <option value="Cone">Stożek</option>
+                                <option value="Cylinder">Walec</option>
+                                <option value="Sphere">Kula</option>
                             </select>
                         </div>
                         <input type="button" style="margin-top: 10px;" class="btn btn-success btn-sm" value="Dodaj źródło światła" onclick="window.addLS();">
@@ -105,6 +105,7 @@
                         <div style="margin-top: 10px;">
                             <span style="font-size: 14px; font-weight: bold;">Tekstura: </span>
                             <input class="btn btn-info btn-sm" style="margin-top: 5px" type="file" value="Upload" id="files" name="files[]" multiple />
+                            <input class="btn btn-danger btn-sm" style="margin-top: 10px;" id="removeTexture" type="button" name="removeTexture" value="Usuń teskturę" onmousedown="window.removeTexture();">
                         </div>
                         <hr />
                         <div style="margin-top: 20px;">
@@ -123,10 +124,10 @@
                                     <img name="dol" onmousedown="window.omd(this);" onmouseup="window.omu(this);" src="img/down.png" alt="Down" onmouseover="this.src='img/down_red.png';" onmouseout="this.src='img/down.png'; window.omu(this);" /> 
                                 </div>
                             </div>
-                            <span style="font-size: 14px; font-weight: bold">Transponowanie: </span>
+                            <span style="font-size: 14px; font-weight: bold">Sterowanie kamerą: </span>
                             <select id="move" style="margin-left: 5px">
-                                <option value="Translate">Translate</option>
-                                <option value="Rotate">Rotate</option>
+                                <option value="Translate">Transponowanie</option>
+                                <option value="Rotate">Obracanie</option>
                             </select>
                             <div class="panel panel-info" style="margin-top: 20px">
                                 <div class="show_hide panel-heading">
@@ -710,5 +711,3 @@
     setInterval(function() {tick();}, 25);
   };
 </script>
-
-<input id="removeTexture" type="button" name="removeTexture" value="Usuń teskture" onmousedown="window.removeTexture();">

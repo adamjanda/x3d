@@ -39,10 +39,10 @@
                 <div class="row clearfix">
                     <div class="col-md-12 col" style="padding: 0; margin-bottom: 40px;">
                         <ul class="nav nav-pills">
-                            <li class="active" style="padding-right: 10px;">
+                            <li style="padding-right: 10px;">
                                 <a href="index.html">Aplikacja</a>
                             </li>
-                            <li style="padding-left: 10px; padding-right: 10px;">
+                            <li class="active" style="padding-left: 10px; padding-right: 10px;">
                                 <a href="dokumentacja.html">Dokumentacja</a>
                             </li>
                             <li style="padding-left: 10px;">
@@ -55,44 +55,120 @@
                     </div>
                 </div>
                 <div class="row clearfix">
-                    <div class="col-md-9 col" style="padding: 0;">
+                    <div class="col-md-12 col" style="padding: 0;">
                         <h1 style="margin-bottom: 40px">Dokumentacja</h1>
                         <p style="margin-top: 20px; font-size: 16px">
                             Dokumentacja dotyczy wszystkich funkcjonalności i została napisana, aby przybliżyć użytkownikowi
                             działanie produktu.   
                         </p>
-                        <blockquote>
-                            <img src="doc/add_obj.jpg" />
-                            <span style="font-size: 17px; margin-left: 10px;"> - przycisk odpowiadający za dodanie nowego obiektu.</span>
-                        </blockquote>
-                        <blockquote>
-                            <img src="doc/del_obj.jpg" />
-                            <span style="font-size: 17px; margin-left: 10px;"> - przycisk odpowiadający za usunięcie obiektu. Aby usunąć dany obiekt najpierw należy go zaznaczyć.</span>
-                        </blockquote>
-                        <blockquote>
-                            <img src="doc/type_obj.jpg" />
-                            <span style="font-size: 17px; margin-left: 10px;"> - lista rozwijana, z której wybieramy typ obiektu.</span>
-                        </blockquote>
-                         <blockquote>
-                            <img src="doc/add_ls.jpg" />
-                            <span style="font-size: 17px; margin-left: 10px;"> - przycisk odpowiadający za dodanie źródła światła.</span>
-                        </blockquote>
-                         <blockquote>
-                            <img src="doc/color.jpg" />
-                            <span style="font-size: 17px; margin-left: 10px;"> - gradient, z którego możemy wybrać kolor obiektu. Aby wybrać kolor danego obiektu najpierw musimy go zaznaczyć.</span>
-                        </blockquote>
-                         <blockquote>
-                            <img src="doc/textures.jpg" />
-                            <span style="font-size: 17px; margin-left: 10px;"> - przycisk odpowiedzialny za dodanie (nałożenie) tekstury na obiekt. Aby nałożyć teksturę najpierw musimy zaznaczyć obiekt.</span>
-                        </blockquote>
-                         <blockquote>
-                            <img src="doc/control.jpg" />
-                            <span style="font-size: 17px; margin-left: 10px;"> - strzałki odpowiedzialne są za poruszanie obiektem - odpowiednio oznaczają kierunki poruszania. Ikony plus i minus, odpowiadają za przybliżanie oraz oddalanie obiektu.</span>
-                        </blockquote>
+                        <div>
+                            <table style="width: 900px;" rules="rows">
+                                <tr>
+                                  <th width="40%" height="100px" style="font-size: 20px;">Reprezentacja graficzna</th>
+                                  <th width="60%" height="100px" style="font-size: 20px;">Opis</th>
+                                </tr>         
+                                <tr>
+                                  <td><img src="doc/add_obj.jpg" /></td>
+                                  <td><span style="font-size: 17px;">przycisk odpowiadający za dodanie nowego obiektu.</span></td>
+                                </tr>  
+                                <tr>
+                                    <td><img src="doc/del_obj.jpg" /></td>
+                                    <td><span style="font-size: 17px;">przycisk odpowiadający za usunięcie obiektu. Aby usunąć dany obiekt najpierw należy go zaznaczyć.</span></td>
+                                </tr>
+                                <tr>
+                                    <td><img src="doc/type_obj.jpg" /></td>
+                                    <td><span style="font-size: 17px;">lista rozwijana, z której wybieramy typ obiektu.</span></td>
+                                </tr>
+                                <tr>
+                                    <td><img src="doc/add_ls.jpg" /></td>
+                                    <td><span style="font-size: 17px;">przycisk odpowiadający za dodanie źródła światła.</span></td>
+                                </tr>
+                                <tr>
+                                    <td><img src="doc/color.jpg" /></td>
+                                    <td><span style="font-size: 17px;">gradient, z którego możemy wybrać kolor obiektu. Aby wybrać kolor danego obiektu najpierw musimy go zaznaczyć.</span></td>
+                                </tr>
+                                <tr>
+                                    <td><img src="doc/upload_texture.jpg" /></td>
+                                    <td> <span style="font-size: 17px;">przycisk odpowiedzialny za dodanie (nałożenie) tekstury na obiekt. Aby nałożyć teksturę najpierw musimy zaznaczyć obiekt.</span></td>
+                                </tr>
+                                <tr>
+                                    <td><img src="doc/remove_texture.jpg" /></td>
+                                    <td><span style="font-size: 17px;">przycisk odpowiedzialny za usunięcie wcześniej nałożonej tekstury. Przed operacją należy zaznaczyć obiekt, który posiada tę teksturę.</span></td>
+                                </tr>
+                                <tr>
+                                    <td><img src="doc/control.jpg" /></td>
+                                    <td><span style="font-size: 17px;">strzałki odpowiedzialne są za poruszanie obiektem - odpowiednio oznaczają kierunki poruszania. Ikony plus i minus, odpowiadają za przybliżanie oraz oddalanie obiektu.</span></td>
+                                </tr>   
+                                <tr>
+                                    <td><img src="doc/move_obj.jpg" /></td>
+                                    <td>
+                                        <span style="font-size: 17px;">lista rozwijana, z której wybieramy opcję dotyczącą sterowania kamerą. Po wybraniu danej opcji za sterowanie odpowiadają klawisze Q, W, E, A, S, D.</span>
+                                        <p style="font-size: 17px;">Transponowanie:</p>
+                                        <ul style="font-size: 17px;">
+                                            <li>Q - przybliżanie</li>
+                                            <li>E - oddalanie</li>
+                                            <li>W - ruch w górę</li>
+                                            <li>S - ruch w dół</li>
+                                            <li>A - ruch w lewo</li>
+                                            <li>D - ruch w prawo</li>
+                                        </ul>
+                                        <p style="font-size: 17px;">Obracanie:</p>
+                                        <ul style="font-size: 17px;">
+                                            <li>Q - </li>
+                                            <li>E - </li>
+                                            <li>W - </li>
+                                            <li>S - </li>
+                                            <li>A - </li>
+                                            <li>D - </li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><img src="doc/resize.jpg" /></td>
+                                    <td>
+                                        <span style="font-size: 17px;">rozwijany blok dotyczący zmiany wielkości obiektu względem danej osi.</span>
+                                        <p style="font-size: 17px;">Osie:</p>
+                                        <ul style="font-size: 17px;">
+                                            <li>Oś X: + poszerza bryłę, - zwęża bryłę</li>
+                                            <li>Oś Y: + wydłuża bryłę, - kurczy bryłę</li>
+                                            <li>Oś Z: + pogłębia bryłę, - czynność odwrotna</li>
+                                        </ul>
+                                    </td>
+                                </tr>  
+                                <tr>
+                                    <td><img src="doc/rotate.jpg" /></td>
+                                    <td>
+                                        <span style="font-size: 17px;">rozwijany blok dotyczący obrotu obiektu względem danej osi.</span>
+                                        <p style="font-size: 17px;">Osie:</p>
+                                        <ul style="font-size: 17px;">
+                                            <li>Oś X</li>
+                                            <li>Oś Y</li>
+                                            <li>Oś Z</li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><img src="doc/info.jpg" /></td>
+                                    <td><span style="font-size: 17px;">pasek informujący o aktualnie używanym obiekcie. Wyświetlana jest wartość "obj(i)", gdzie i oznacza numer przypisany do danego obiektu.</span></td>
+                                </tr> 
+                                <tr>
+                                    <td><img src="doc/light.jpg" /></td>
+                                    <td><span style="font-size: 17px;">przycisk odpowiedzialny za włączenie/wyłączenie światła.</span></td>
+                                </tr> 
+                                <tr>
+                                    <td><img src="doc/transparency.jpg" /></td>
+                                    <td><span style="font-size: 17px;">suwak regulujący przezroczystość wybranej bryły. Przed ustaleniem przezroczystości najpierw musimy zaznaczyć bryłę.</span></td>
+                                </tr> 
+                                <tr>
+                                    <td><span style="font-size: 17px; margin-left: 5px;">Kursor myszy</span></td>
+                                    <td><span style="font-size: 17px;">za pomocą myszki możemy przenosić obiekt poprzednia klikając i trzymając lewy przycisk myszy</span></td>
+                                </tr> 
+                            </table> 
+                        </div> 
                     </div>
-                    <div class="col-md-3 col" style="padding: 0 0 0 15px;">
+                    <!--<div class="col-md-3 col" style="padding: 0 0 0 15px;">
 
-                    </div>
+                    </div>-->
                 </div>
             </div>
             <div class="row clearfix" id="footer">
