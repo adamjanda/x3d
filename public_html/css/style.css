@@ -82,3 +82,7 @@ a {
 .btn {
     line-height: 16px;
 }
+
+.cbalink {
+    visibility: hidden;
+}
