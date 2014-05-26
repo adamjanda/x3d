@@ -61,9 +61,9 @@
                             <span style="font-weight: bold; color: #666;">Info:</span>
                             <span id="wybrany" style="color: #666;">Nie wybrano obiektu.</span>
                         </div>
-                        <input style="margin-bottom: 5px;" class="btn btn-info btn-sm" id="lightbtn" type="button" name="CameraLight" value="Światło kamery Wył." onmousedown="window.cameraLight(this);">
+                        <input style="margin-bottom: 5px;" class="btn btn-info btn-sm" id="lightbtn" type="button" name="CameraLight" value="Domyślne źródło światła Wył." onmousedown="window.cameraLight(this);">
                         <span style="font-weight: bold; margin-left: 20px;">Przezroczystość: </span>
-                        <div style="margin-left: 260px; margin-top: -23px; margin-bottom: 20px;" id="slider"></div>
+                        <div style="margin-left: 310px; margin-top: -23px; margin-bottom: 20px;" id="slider"></div>
                         <x3d onkeydown="keydown(event)" id="x3d" showStat="false" showLog="false" width="780px" height="580px">
                             <param name="showLog" value="false"></param>
                             <param name="showStat" value="false"></param>
@@ -678,15 +678,15 @@
 
   function cameraLight(obj)
   {
-    if (obj.value=="Światło kamery Wył.")
+    if (obj.value=="Domyślne źródło światła Wył.")
     {
-      document.getElementById('lightbtn').value = "Światło kamery Wł.";
+      document.getElementById('lightbtn').value = "Domyślne źródło światła Wł.";
       var ot = document.getElementById('root');
       ot.removeChild(document.getElementById('light'));
     }
     else
     {
-      document.getElementById('lightbtn').value = "Światło kamery Wył.";
+      document.getElementById('lightbtn').value = "Domyślne źródło światła Wył.";
 
       var dl = document.createElement('DirectionalLight');
       dl.setAttribute("id","light");
