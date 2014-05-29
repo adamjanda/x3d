@@ -253,6 +253,7 @@
 
   var wybrany = null;
   var wybranyName = null;
+  var ostName = null;
   var iloscObj = 0;
   var move = null;
   var moveDir = null;
@@ -374,6 +375,7 @@
 
     wybrany = redBox
     wybranyName = wybrany.getAttribute("id");
+    ostName = wybrany.getAttribute("id");
     document.getElementById(wybranyName).setAttribute("translation","0 0 0");
     document.getElementById('wybrany').innerHTML = "Wybrany obiekt " + wybranyName;
   };
@@ -429,6 +431,7 @@
 
     wybrany = redBox
     wybranyName = wybrany.getAttribute("id");
+    ostName = wybrany.getAttribute("id");
     document.getElementById(wybranyName).setAttribute("translation","0 0 0");
     document.getElementById('wybrany').innerHTML = "Wybrany obiekt " + wybranyName;
   };
@@ -667,12 +670,29 @@
     {
       wybrany.getElementsByTagName("shape")[0].getElementsByTagName("appearance")[0].getElementsByTagName("material")[0].setAttribute('transparency',pos);
 
-      var ot = document.getElementById('root');
-      tmp = wybramy;
-      killFullObject(ot,wybrany);
-      wybrany = tmp;
-      ot.appendChild(tmp);
-      killFullObject(ot,tmp);
+      if (wybranyName != ostName)
+      {
+          wybranyName = ostName;
+          var lightFlag = false;
+          var ot = document.getElementById('root');
+          if (wybrany.getElementsByTagName("Transform")[0].getElementsByTagName("Transform")[0].getElementsByTagName("PointLight")[0] != null)
+          {
+            killFullObject(wybrany.getElementsByTagName("Transform")[0].getElementsByTagName("Transform")[0],wybrany.getElementsByTagName("Transform")[0].getElementsByTagName("Transform")[0].getElementsByTagName("PointLight")[0]);
+            lightFlag = true;
+          }
+          ot.removeChild(wybrany);
+          ot.appendChild(wybrany);
+          if (lightFlag == true)
+          {
+            var pl = document.createElement('PointLight');
+            pl.setAttribute('color','1 1 1');
+            pl.setAttribute('radius','360');
+            pl.setAttribute('ambientIntensity','0.4');
+            pl.setAttribute('intensity','0.7');
+            wybrany.getElementsByTagName("Transform")[0].getElementsByTagName("Transform")[0].appendChild(pl);
+          }
+          new x3dom.Moveable(document.getElementById("x3d"),wybrany, null, 0);
+      }
     }
   }
 
