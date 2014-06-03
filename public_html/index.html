@@ -670,9 +670,7 @@
     {
       wybrany.getElementsByTagName("shape")[0].getElementsByTagName("appearance")[0].getElementsByTagName("material")[0].setAttribute('transparency',pos);
 
-      if (wybranyName != ostName)
-      {
-          wybranyName = ostName;
+      
           var lightFlag = false;
           var ot = document.getElementById('root');
           if (wybrany.getElementsByTagName("Transform")[0].getElementsByTagName("Transform")[0].getElementsByTagName("PointLight")[0] != null)
@@ -692,7 +690,6 @@
             wybrany.getElementsByTagName("Transform")[0].getElementsByTagName("Transform")[0].appendChild(pl);
           }
           new x3dom.Moveable(document.getElementById("x3d"),wybrany, null, 0);
-      }
     }
   }
 
